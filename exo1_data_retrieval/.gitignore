@@ -1,0 +1,11 @@
+# Compilation, caches et fichiers locaux de cet exercice uniquement
+target/
+project/target/
+project/project/
+.tools/
+.bsp/
+.idea/
+.env
+.env.*
+!.env.example
+*.parquet
