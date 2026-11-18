@@ -1,6 +1,6 @@
 ThisBuild / version := "0.1.0-SNAPSHOT"
 
-ThisBuild / scalaVersion := "2.13.17"
+ThisBuild / scalaVersion := "2.13.18"
 
 lazy val root = (project in file("."))
   .settings(
@@ -13,3 +13,4 @@ libraryDependencies += "org.apache.spark" %% "spark-core" % "4.2.0"
 libraryDependencies += "org.apache.spark" %% "spark-sql" % "4.2.0"
 // Source: https://mvnrepository.com/artifact/org.apache.spark/spark-hadoop-cloud
 libraryDependencies += "org.apache.spark" %% "spark-hadoop-cloud" % "4.2.0"
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.19" % Test
