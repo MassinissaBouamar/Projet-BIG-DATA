@@ -1,6 +1,14 @@
 import pandas as pd
 
-CHEMIN_DONNEES = "../data/raw/yellow_tripdata_2026-01.parquet"
+# parquet nettoye par l'exercice 2 (branche 1)
+CHEMIN_DONNEES = "s3://nyc-raw/processed/yellow_2026_01/"
+
+# acces a RustFS, memes identifiants que dans le docker-compose
+OPTIONS_S3 = {
+    "key": "rustfsadmin",
+    "secret": "rustfsadmin",
+    "client_kwargs": {"endpoint_url": "http://localhost:9000"},
+}
 
 FEATURES = [
     "trip_distance",
@@ -14,12 +22,12 @@ TARGET = "total_amount"
 
 
 def charger_donnees(chemin):
-    """Charge le fichier parquet des courses.
+    """Charge le parquet des courses depuis RustFS.
 
     Parameters
     ----------
     chemin : str
-        Chemin vers le fichier parquet.
+        Chemin du parquet dans RustFS.
 
     Returns
     -------
@@ -27,7 +35,7 @@ def charger_donnees(chemin):
         Les courses brutes.
 
     """
-    return pd.read_parquet(chemin)
+    return pd.read_parquet(chemin, storage_options=OPTIONS_S3)
 
 
 def ajouter_features(df):
