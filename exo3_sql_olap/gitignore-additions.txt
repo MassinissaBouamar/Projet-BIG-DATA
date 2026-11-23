@@ -1,0 +1,5 @@
+# Build outputs et secrets locaux
+**/target/
+.env
+# Referentiel telecharge localement (reproductible depuis NYC TLC)
+exo3_sql_olap/taxi_zone_lookup.csv

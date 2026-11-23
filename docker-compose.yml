@@ -66,10 +66,34 @@ services:
     command: ["org.apache.spark.deploy.worker.Worker", "spark://spark-master:7077"]
     networks:
       - spark-net
+  postgres:
+    image: postgres:17
+    container_name: nyc-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-nyc}
+      POSTGRES_DB: ${POSTGRES_DB:-nyc_dw}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-nyc_dw}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./exo3_sql_olap:/sql:ro
+    networks:
+      - spark-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  rustfs-data:
+  postgres-data:
 
 networks:
   spark-net:
     driver: bridge
 
-volumes:
-  rustfs-data:
+
+
+

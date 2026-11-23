@@ -1,0 +1,24 @@
+# Ajouter la section postgres sous "services:" dans docker-compose.yml
+# Conserver les services rustfs et spark existants.
+  postgres:
+    image: postgres:17
+    container_name: nyc-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-nyc}
+      POSTGRES_DB: ${POSTGRES_DB:-nyc_dw}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Definir POSTGRES_PASSWORD dans .env}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./exo3_sql_olap:/sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - spark-net
+
+# Ajouter sous "volumes:" (au meme niveau que rustfs-data:)
+#   postgres-data:
