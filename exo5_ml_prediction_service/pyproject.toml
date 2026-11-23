@@ -1,0 +1,25 @@
+[project]
+name = "exo5-ml-prediction"
+version = "0.1.0"
+description = "Exercice 5 : prediction du prix d'une course de taxi jaune NYC"
+authors = [
+    { name = "Xinyu YU", email = "xinyu.yu2@etu.cyu.fr" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "pandas>=3.1.1",
+    "pyarrow>=26.0.1",
+    "s3fs>=2026.9.0",
+    "scikit-learn>=1.9.1",
+    "streamlit>=1.67.0",
+]
+
+[dependency-groups]
+dev = [
+    "flake8>=7.5.0",
+    "pyment>=0.3.3",
+    "pytest>=9.2.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
